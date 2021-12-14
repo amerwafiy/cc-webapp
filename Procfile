@@ -1,1 +1,1 @@
-web: sh setup.sh && streamlit run cc-performance.py
+web: sh setup.sh && streamlit run cc_performance.py
