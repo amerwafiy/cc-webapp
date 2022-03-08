@@ -47,10 +47,26 @@ def generate_result(df):
     result = pd.DataFrame({'Agent ID': agents})
     for d in dates:
         sub_date = df[df['Call Start DT'] == d]
-        temp = []
+        temp1 = []
+        temp2 = []
+        temp3 = []
+        temp4 = []
         for agent in list(result['Agent ID']):
-            temp.append(len(sub_date[sub_date['Agent Username'] == agent]))
-        result[d] = temp
+            agent_df = sub_date[sub_date['Agent Username'] == agent]
+            total_calls = len(agent_df)
+            cr = agent_df[agent_df['Call Dur Full'] > 59]
+
+            total_duration = round(sum(list(agent_df['Call Dur Full'])) / total_calls)
+            total_duration_cr = round(sum(list(cr['Call Dur Full'])) / len(cr))
+            temp1.append(total_calls)
+            temp2.append(total_duration)
+            temp3.append(len(cr))
+            temp4.append(total_duration_cr)
+
+        result[d + ': # Calls Attempted'] = temp1
+        result[d + ': Avg Call Duration(s)'] = temp2
+        result[d + ': # CR'] = temp3
+        result[d + ': Avg CR Duration(s)'] = temp4
     result = result.sort_values('Agent ID').reset_index(drop=True)
     return result
 
@@ -80,7 +96,7 @@ if uploaded_file is not None:
 
         with st.spinner('Wait for it...'):
             result = generate_result(df)
-            st.dataframe(result)
+            st.table(result)
 
         df_xlsx = to_excel(result)
         st.download_button(label='📥 Download Result',
@@ -96,7 +112,7 @@ if uploaded_file is not None:
             df = pd.read_excel(uploaded_file, header=5)
 
         result = generate_result(df)
-        st.dataframe(result)
+        st.table(result)
 
         df_xlsx = to_excel(result)
         st.download_button(label='📥 Download Result',
