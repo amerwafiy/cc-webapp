@@ -19,7 +19,7 @@ st.markdown(hide_st_style, unsafe_allow_html=True)
 image = Image.open('invoke_logo.jpg')
 st.image(image)
 
-st.title('Call Centre Performance Web App')
+st.title('Call Centre Performance Tracker')
 
 
 def to_excel(df):
