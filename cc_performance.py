@@ -79,7 +79,7 @@ def generate_chart(x, y, d):
     ax.barh(x, y,  align='center', color=colors)
     ax.invert_yaxis()  # labels read top-to-bottom
     ax.set_xlabel('Number of Calls')
-    ax.set_title(d + ' By CC Agent)
+    ax.set_title(d + ' By CC Agent')
     st.pyplot(fig)
 
 
