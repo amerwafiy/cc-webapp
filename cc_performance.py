@@ -71,7 +71,7 @@ def generate_result(df):
     return result
 
 
-def generate_chart(x, y, date):
+def generate_chart(x, y, d):
     green = Color("green")
     colors = list(green.range_to(Color("red"), len(x)))
     colors = [color.rgb for color in colors]
@@ -79,7 +79,7 @@ def generate_chart(x, y, date):
     ax.barh(x, y,  align='center', color=colors)
     ax.invert_yaxis()  # labels read top-to-bottom
     ax.set_xlabel('Number of Calls')
-    ax.set_title('Number of Calls Attempted By CC Agent ' + '('+date+')')
+    ax.set_title(d + ' By CC Agent)
     st.pyplot(fig)
 
 
